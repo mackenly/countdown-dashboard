@@ -4,9 +4,10 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({ children }) 
 		<head>
 			<meta charSet="utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
-			<title>@redwoodjs/starter-standard</title>
+			<title>Countdown Dashboard</title>
 			<link rel="modulepreload" href="/src/client.tsx" />
 			<link rel="stylesheet" href={styles} />
+			<link rel="icon" href="https://fav.farm/⌛️" />
 		</head>
 		<body>
 			<div id="root">{children}</div>

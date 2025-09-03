@@ -43,7 +43,7 @@ export function Login() {
       setResult("Login successful!");
       // Navigate to protected page after successful login
       setTimeout(() => {
-        window.location.href = "/protected";
+        window.location.href = "/account";
       }, 1000);
     }
   };
@@ -62,6 +62,10 @@ export function Login() {
       setResult("Registration failed");
     } else {
       setResult("Registration successful!");
+      // Navigate to account page after successful registration
+      setTimeout(() => {
+        window.location.href = "/account";
+      }, 1000);
     }
   };
 

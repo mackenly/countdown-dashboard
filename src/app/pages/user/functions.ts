@@ -102,6 +102,12 @@ export async function finishPasskeyRegistration(
     },
   });
 
+  // Establish session for the newly registered user
+  await sessions.save(headers, {
+    userId: user.id,
+    challenge: null,
+  });
+
   return true;
 }
 

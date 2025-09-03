@@ -4,6 +4,7 @@ import { PrismaD1 } from "@prisma/adapter-d1";
 export type * from "@generated/prisma";
 
 export let db: PrismaClient;
+let dbInitialized = false;
 
 // context(justinvdm, 21-05-2025): We need to instantiate the client via a
 // function rather that at the module level for several reasons:
@@ -13,6 +14,10 @@ export let db: PrismaClient;
 // * So that we can encapsulate workarounds, e.g. see `SELECT 1` workaround
 //   below
 export const setupDb = async (env: Env) => {
+  if (dbInitialized) {
+    return;
+  }
+  
   db = new PrismaClient({
     // context(justinvdm, 21-05-2025): prisma-client generated type appears to
     // consider D1 adapter incompatible, though in runtime (dev and production)
@@ -21,6 +26,8 @@ export const setupDb = async (env: Env) => {
     adapter: new PrismaD1(env.DB),
   });
 
-  // context(justinvdm, 21-05-2025): https://github.com/cloudflare/workers-sdk/pull/8283
-  await db.$queryRaw`SELECT 1`;
+  // Note: Removed $queryRaw workaround as it may be causing hanging requests
+  // await db.$queryRaw`SELECT 1`;
+  
+  dbInitialized = true;
 };

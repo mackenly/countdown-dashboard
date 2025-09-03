@@ -27,6 +27,36 @@ model User {
   createdAt   DateTime    @default(now())
 
   credentials Credential[] // Relationship: One user can have many credentials
+  countdowns  Countdown[] // User can have multiple countdowns
+}
+
+model Countdown {
+  id                String   @id @default(uuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Countdown details
+  name              String   // User-defined name for the countdown
+  description       String?  // Optional description
+  targetDate        DateTime
+  
+  // Work schedule configuration (JSON array of day numbers: 0=Sunday, 1=Monday, etc.)
+  workDays          String   @default("[1,2,3,4,5]") // Default: Monday-Friday
+  
+  // Holiday configuration
+  holidays          String   @default("[]") // JSON array of holiday dates
+  floatingHolidays  Int      @default(0) // Number of floating holidays available
+  ptoDays           Int      @default(0) // Number of PTO days available
+  
+  // Widget configuration (JSON array of enabled widget IDs)
+  enabledWidgets    String   @default("[\"timer\",\"progress\",\"contribution\",\"stats\"]")
+  
+  // Metadata
+  isActive          Boolean  @default(true) // Whether this countdown is active
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@index([userId])
 }
 
 model Credential {

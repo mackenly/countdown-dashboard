@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/app/components/ui/card";
 
-export function Protected({ ctx }: RequestInfo) {
+export function Account({ ctx }: RequestInfo) {
   const handleLogout = () => {
     window.location.href = "/user/logout";
   };
@@ -21,10 +21,10 @@ export function Protected({ ctx }: RequestInfo) {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-            Welcome to Your Dashboard
+            Account Dashboard
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">
-            You've successfully accessed the protected area
+            Manage your account and countdown settings
           </p>
         </div>
 
@@ -109,6 +109,46 @@ export function Protected({ ctx }: RequestInfo) {
             </CardContent>
           </Card>
         </div>
+
+        {/* Countdown Configuration Card */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                ⏰
+              </div>
+              Countdown Dashboard
+            </CardTitle>
+            <CardDescription>
+              Configure your work schedule and target date for the countdown dashboard
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <p className="text-slate-700 dark:text-slate-300">
+                Set up your countdown configuration to track work days until your target date. 
+                You can configure your work schedule, add holidays, and set PTO days.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  onClick={() => window.location.href = "/manage"}
+                  size="lg"
+                  className="flex-1"
+                >
+                  Manage Countdowns
+                </Button>
+                <Button
+                  onClick={() => window.location.href = "/create"}
+                  variant="outline"
+                  size="lg"
+                  className="flex-1"
+                >
+                  Create New
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
